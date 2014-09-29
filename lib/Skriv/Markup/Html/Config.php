@@ -112,6 +112,8 @@ class Config extends \WikiRenderer\Config  {
 			'addFootnotes'		=> false,
 			'codeInlineStyles'	=> false,
 			'debugMode'		=> false,
+			'debugMode'		=> false,
+			'softLinebreaks' 	=> false,
 		);
 		// processing of specified parameters
 		if (isset($param['shortenLongUrl']) && $param['shortenLongUrl'] === false)
@@ -149,6 +151,10 @@ class Config extends \WikiRenderer\Config  {
 			$this->_params['codeInlineStyles'] = true;
 		if (isset($param['debugMode']) && $param['debugMode'] === true)
 			$this->_params['debugMode'] = true;
+		if (isset($param['softLinebreaks']) && $param['softLinebreaks'] === true) {
+			$this->_params['softLinebreaks'] = true;
+			$this->simpletags = array('-/-' => '<br />');
+		}
 		// configuration of extensions
 		foreach ($this->_extensions as $extensionName => $defaultConf) {
 			if (isset($param[$extensionName]) && is_bool($param[$extensionName]))

@@ -9,6 +9,7 @@ class Paragraph extends \WikiRenderer\Block {
 	protected $_closeTag = '</p>';
 	/** Attribute used to manage carriage-returns inside paragraphs. */
 	private $_firstLine = true;
+	private $_linePrefix = "<br />";
 
 	/**
 	 * Detection of paragraphs.
@@ -40,9 +41,15 @@ class Paragraph extends \WikiRenderer\Block {
 	protected function _renderInlineTag($string) {
 		$string = $this->engine->inlineParser->parse($string);
 		// handling of carriage-returns inside paragraphs
-		$string = (!$this->_firstLine) ? "<br />$string" : $string;
-		$this->_firstLine = false;
-		return ($string);
+		if ($this->_firstLine) {
+			if ($this->engine->getConfig()->getParam('softLinebreaks'))
+				$this->_linePrefix = " ";
+			else
+				$this->_linePrefix = "<br />";
+			$this->_firstLine = false;
+			return $string;
+		}
+		return $this->_linePrefix . $string;
 	}
 }
 
