@@ -112,7 +112,6 @@ class Config extends \WikiRenderer\Config  {
 			'addFootnotes'		=> false,
 			'codeInlineStyles'	=> false,
 			'debugMode'		=> false,
-			'debugMode'		=> false,
 			'softLinebreaks' 	=> false,
 		);
 		// processing of specified parameters
